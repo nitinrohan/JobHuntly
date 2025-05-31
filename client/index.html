@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobHuntly</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Track you Job Applications</h1>
+      <form id="jobForm" enctype="multipart/form-data">
+        <input
+          type="email"
+          name="email"
+          placeholder="email that youve applied it with"
+          required
+        />
+        <input type="text" name="role" placeholder="job role" required />
+        <input type="text" name="company" placeholder="Company name" required />
+        <input
+          type="url"
+          name="joblink"
+          placeholder="application link"
+          required
+        />
+        <label for="status">Application status:</label>
+        <select name="status" id="status">
+          <option value="Applied">Applied</option>
+          <option value="Applied">Interview</option>
+          <option value="Applied">Offer</option>
+          <option value="Applied">Rejected</option>
+        </select>
+
+        <label for="resume">Upload Resume:</label>
+        <input type="file" name="resume" accept=".pdf" />
+        <textarea
+          name="notes"
+          placeholder="Additional notes........"
+          rows="4"
+        ></textarea>
+        <button type="submit">Add Job</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #f9b233, #ff512f);
+  min-height: 100vh;
+  display: flex;
+  align-items: center; /* centers content vertically*/
+  justify-content: center; /* centers content horizontally*/
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.85); /* Semi-transparent dark panel */
+  padding: 30px; /* Internal spacing */
+  border-radius: 15px; /* Rounded corners for the card feel */
+  width: 100%;
+  max-width: 500px; /* Prevents it from being too wide */
+  border: 2px solid #f9b233; /* Bright Naruto-orange outline */
+
+  /* ⚡ Enhanced box-shadow for strong glow */
+  box-shadow: 0 0 20px rgba(249, 178, 51, 0.9),
+    /* Bright orange outer glow */ 0 0 40px rgba(249, 178, 51, 0.5),
+    /* Softer glow extending further */ 0 0 60px rgba(255, 255, 255, 0.1); /* Light white highlight glow */
+
+  color: white; /* Text color inside the form */
+}
+
+h1 {
+  text-align: center; /*centers the heading*/
+  margin-bottom: 20px;
+  color: #f9b233;
+  text-shadow: 2px 2px 5px black;
+}
+
+input,
+select,
+textarea {
+  width: 100%; /*full width*/
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  color: white;
+  font-size: 1rem;
+}
+
+input[type="file"] {
+  padding: 5px;
+  background-color: #333;
+}
+
+label {
+  display: block; /* makes label take full width*/
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #fff;
+}
+
+button {
+  background-color: #f9b233;
+  color: black;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff8000;
+}

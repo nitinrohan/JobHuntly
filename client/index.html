@@ -2,47 +2,78 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Character encoding for proper rendering -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JobHuntly</title>
+    <!-- Makes page responsive -->
+    <title>Huntly - Job Application Tracker</title>
+    <!-- Page title in browser tab -->
     <link rel="stylesheet" href="css/style.css" />
+    <!-- Link to external CSS -->
   </head>
-  <body>
-    <div class="container">
-      <h1>Track you Job Applications</h1>
-      <form id="jobForm" enctype="multipart/form-data">
-        <input
-          type="email"
-          name="email"
-          placeholder="email that youve applied it with"
-          required
-        />
-        <input type="text" name="role" placeholder="job role" required />
-        <input type="text" name="company" placeholder="Company name" required />
-        <input
-          type="url"
-          name="joblink"
-          placeholder="application link"
-          required
-        />
-        <label for="status">Application status:</label>
-        <select name="status" id="status">
-          <option value="Applied">Applied</option>
-          <option value="Applied">Interview</option>
-          <option value="Applied">Offer</option>
-          <option value="Applied">Rejected</option>
+
+  <body class="naruto-theme">
+    <!-- Default theme is Naruto -->
+
+    <!-- Wrapper to center and stack dropdown + container -->
+    <div class="wrapper">
+      <!-- Theme Dropdown Selector -->
+      <div class="theme-selector">
+        <label for="themeDropdown">Select Theme:</label>
+        <select id="themeDropdown">
+          <option value="naruto-theme">Naruto</option>
+          <option value="onepiece-theme">One Piece</option>
+          <option value="demonslayer-theme">Demon Slayer</option>
         </select>
+      </div>
 
-        <label for="resume">Upload Resume:</label>
-        <input type="file" name="resume" accept=".pdf" />
-        <textarea
-          name="notes"
-          placeholder="Additional notes........"
-          rows="4"
-        ></textarea>
-        <button type="submit">Add Job</button>
-      </form>
+      <!-- Job Tracker Form Container -->
+      <div class="container">
+        <h1>Track Your Job Applications</h1>
+        <form id="jobForm" enctype="multipart/form-data">
+          <input
+            type="email"
+            name="email"
+            placeholder="Recruiter's Email"
+            required
+          />
+          <input type="text" name="role" placeholder="Job Role" required />
+          <input
+            type="text"
+            name="company"
+            placeholder="Company Name"
+            required
+          />
+          <input
+            type="url"
+            name="jobLink"
+            placeholder="Application Link"
+            required
+          />
+
+          <label for="status">Application Status:</label>
+          <select name="status" id="status">
+            <option value="Applied">Applied</option>
+            <option value="Interview">Interview</option>
+            <option value="Offer">Offer</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+
+          <label for="resume">Upload Resume:</label>
+          <input type="file" name="resume" accept=".pdf" />
+
+          <textarea
+            name="notes"
+            rows="4"
+            placeholder="Additional Notes..."
+          ></textarea>
+
+          <button type="submit">Add Job</button>
+        </form>
+      </div>
     </div>
+    <!-- End of wrapper -->
 
+    <!-- Link to JavaScript logic -->
     <script src="js/main.js"></script>
   </body>
 </html>

@@ -1,40 +1,46 @@
+/* ============ BASE STYLES ============ */
+
 body {
   margin: 0;
-  font-family: "Segoe UI", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #f9b233, #ff512f);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
   display: flex;
-  align-items: center; /* centers content vertically*/
-  justify-content: center; /* centers content horizontally*/
+  align-items: center;
+  justify-content: center;
+  transition: background 0.5s ease;
 }
 
-.container {
-  background-color: rgba(0, 0, 0, 0.85); /* Semi-transparent dark panel */
-  padding: 30px; /* Internal spacing */
-  border-radius: 15px; /* Rounded corners for the card feel */
+/* Centers and stacks dropdown + form box */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  max-width: 500px; /* Prevents it from being too wide */
-  border: 2px solid #f9b233; /* Bright Naruto-orange outline */
-
-  /* ⚡ Enhanced box-shadow for strong glow */
-  box-shadow: 0 0 20px rgba(249, 178, 51, 0.9),
-    /* Bright orange outer glow */ 0 0 40px rgba(249, 178, 51, 0.5),
-    /* Softer glow extending further */ 0 0 60px rgba(255, 255, 255, 0.1); /* Light white highlight glow */
-
-  color: white; /* Text color inside the form */
 }
 
+/* Container for job form */
+.container {
+  padding: 30px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 500px;
+  color: white;
+  transition: all 0.4s ease;
+}
+
+/* Title */
 h1 {
-  text-align: center; /*centers the heading*/
+  text-align: center;
   margin-bottom: 20px;
-  color: #f9b233;
+  font-size: 1.8rem;
   text-shadow: 2px 2px 5px black;
 }
 
+/* Form fields */
 input,
 select,
 textarea {
-  width: 100%; /*full width*/
+  width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   border: none;
@@ -42,6 +48,7 @@ textarea {
   background-color: #1a1a1a;
   color: white;
   font-size: 1rem;
+  box-sizing: border-box;
 }
 
 input[type="file"] {
@@ -49,13 +56,15 @@ input[type="file"] {
   background-color: #333;
 }
 
+/* Labels */
 label {
-  display: block; /* makes label take full width*/
+  display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #fff;
+  color: #ffffff;
 }
 
+/* Button */
 button {
   background-color: #f9b233;
   color: black;
@@ -70,4 +79,51 @@ button {
 
 button:hover {
   background-color: #ff8000;
+}
+
+/* ============ THEME SELECTOR ============ */
+
+.theme-selector {
+  margin-bottom: 20px;
+  text-align: center;
+  color: white;
+}
+
+/* ============ NARUTO THEME ============ */
+
+.naruto-theme {
+  background: linear-gradient(to right, #f9b233, #ff512f);
+}
+
+.naruto-theme .container {
+  background-color: rgba(0, 0, 0, 0.85);
+  border: 2px solid #f9b233;
+  box-shadow: 0 0 20px rgba(249, 178, 51, 0.9), 0 0 40px rgba(249, 178, 51, 0.5),
+    0 0 60px rgba(255, 255, 255, 0.1);
+}
+
+/* ============ ONE PIECE THEME ============ */
+
+.onepiece-theme {
+  background: linear-gradient(to right, #0077b6, #00b4d8);
+}
+
+.onepiece-theme .container {
+  background-color: rgba(0, 0, 50, 0.85);
+  border: 2px solid #ffdd00;
+  box-shadow: 0 0 20px rgba(255, 221, 0, 0.9), 0 0 40px rgba(0, 180, 216, 0.5),
+    0 0 60px rgba(255, 255, 255, 0.1);
+}
+
+/* ============ DEMON SLAYER THEME ============ */
+
+.demonslayer-theme {
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+}
+
+.demonslayer-theme .container {
+  background-color: rgba(30, 30, 30, 0.9);
+  border: 2px solid #00ffcc;
+  box-shadow: 0 0 20px rgba(0, 255, 204, 0.8), 0 0 40px rgba(0, 255, 204, 0.3),
+    0 0 60px rgba(255, 255, 255, 0.1);
 }

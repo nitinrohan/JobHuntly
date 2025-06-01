@@ -1,5 +1,3 @@
-/* ============ BASE STYLES ============ */
-
 body {
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -10,7 +8,6 @@ body {
   transition: background 0.5s ease;
 }
 
-/* Centers and stacks dropdown + form box */
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -18,7 +15,6 @@ body {
   width: 100%;
 }
 
-/* Container for job form */
 .container {
   padding: 30px;
   border-radius: 15px;
@@ -28,7 +24,6 @@ body {
   transition: all 0.4s ease;
 }
 
-/* Title */
 h1 {
   text-align: center;
   margin-bottom: 20px;
@@ -36,7 +31,6 @@ h1 {
   text-shadow: 2px 2px 5px black;
 }
 
-/* Form fields */
 input,
 select,
 textarea {
@@ -48,7 +42,6 @@ textarea {
   background-color: #1a1a1a;
   color: white;
   font-size: 1rem;
-  box-sizing: border-box;
 }
 
 input[type="file"] {
@@ -56,7 +49,6 @@ input[type="file"] {
   background-color: #333;
 }
 
-/* Labels */
 label {
   display: block;
   margin-bottom: 5px;
@@ -64,7 +56,6 @@ label {
   color: #ffffff;
 }
 
-/* Button */
 button {
   background-color: #f9b233;
   color: black;
@@ -74,14 +65,11 @@ button {
   font-size: 1rem;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: #ff8000;
 }
-
-/* ============ THEME SELECTOR ============ */
 
 .theme-selector {
   margin-bottom: 20px;
@@ -89,41 +77,88 @@ button:hover {
   color: white;
 }
 
-/* ============ NARUTO THEME ============ */
-
+/* === THEMES === */
 .naruto-theme {
   background: linear-gradient(to right, #f9b233, #ff512f);
 }
-
 .naruto-theme .container {
   background-color: rgba(0, 0, 0, 0.85);
   border: 2px solid #f9b233;
-  box-shadow: 0 0 20px rgba(249, 178, 51, 0.9), 0 0 40px rgba(249, 178, 51, 0.5),
-    0 0 60px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px #f9b233aa, 0 0 40px #f9b23388;
 }
-
-/* ============ ONE PIECE THEME ============ */
 
 .onepiece-theme {
   background: linear-gradient(to right, #0077b6, #00b4d8);
 }
-
 .onepiece-theme .container {
   background-color: rgba(0, 0, 50, 0.85);
   border: 2px solid #ffdd00;
-  box-shadow: 0 0 20px rgba(255, 221, 0, 0.9), 0 0 40px rgba(0, 180, 216, 0.5),
-    0 0 60px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px #ffdd00aa, 0 0 40px #00b4d866;
 }
-
-/* ============ DEMON SLAYER THEME ============ */
 
 .demonslayer-theme {
   background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
 }
-
 .demonslayer-theme .container {
   background-color: rgba(30, 30, 30, 0.9);
   border: 2px solid #00ffcc;
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.8), 0 0 40px rgba(0, 255, 204, 0.3),
-    0 0 60px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px #00ffccaa, 0 0 40px #00ffcc55;
+}
+
+/* === ICON ANIMATIONS === */
+.icon-overlap {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  z-index: 10;
+}
+
+.container {
+  position: relative; /* Enables absolute positioning inside it */
+  padding: 30px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 500px;
+  color: white;
+  transition: all 0.4s ease;
+}
+
+.theme-icon {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  animation: none;
+}
+
+.theme-icon.hidden {
+  display: none;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes stab {
+  0% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

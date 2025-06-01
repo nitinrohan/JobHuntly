@@ -1,39 +1,53 @@
-// Wait for the full DOM to load
 document.addEventListener("DOMContentLoaded", function () {
-  // === THEME DROPDOWN HANDLING ===
+  const themeDropdown = document.getElementById("themeDropdown");
+  const body = document.body;
+  const themes = ["naruto-theme", "onepiece-theme", "demonslayer-theme"];
+  const jobForm = document.getElementById("jobForm");
 
-  const themeDropdown = document.getElementById("themeDropdown"); // dropdown element
-  const body = document.body; // <body> tag to apply theme
-  const themes = ["naruto-theme", "onepiece-theme", "demonslayer-theme"]; // all themes
+  const narutoIcon = document.getElementById("naruto-icon");
+  const onepieceIcon = document.getElementById("onepiece-icon");
+  const demonslayerIcon = document.getElementById("demonslayer-icon");
 
-  // Load saved theme from localStorage if available
-  const savedTheme = localStorage.getItem("selectedTheme");
-  if (savedTheme && themes.includes(savedTheme)) {
-    body.classList.remove(...themes); // remove any theme already on body
-    body.classList.add(savedTheme); // apply saved theme
-    themeDropdown.value = savedTheme; // set dropdown value
+  function showIcon(theme) {
+    [narutoIcon, onepieceIcon, demonslayerIcon].forEach((icon) => {
+      icon.classList.add("hidden");
+      icon.style.animation = "none";
+    });
+
+    if (theme === "naruto-theme") {
+      narutoIcon.classList.remove("hidden");
+      narutoIcon.style.animation = "shake 0.8s ease 2";
+    } else if (theme === "onepiece-theme") {
+      onepieceIcon.classList.remove("hidden");
+      onepieceIcon.style.animation = "shake 0.8s ease 2";
+    } else if (theme === "demonslayer-theme") {
+      demonslayerIcon.classList.remove("hidden");
+      demonslayerIcon.style.animation = "stab 0.6s ease 2";
+    }
   }
 
-  // On theme change, update the body class and save selection
+  const savedTheme = localStorage.getItem("selectedTheme");
+  if (savedTheme && themes.includes(savedTheme)) {
+    body.classList.remove(...themes);
+    body.classList.add(savedTheme);
+    themeDropdown.value = savedTheme;
+    showIcon(savedTheme);
+  } else {
+    showIcon(themeDropdown.value);
+  }
+
   themeDropdown.addEventListener("change", function () {
-    body.classList.remove(...themes); // remove all themes
-    const selectedTheme = themeDropdown.value; // get new value
-    body.classList.add(selectedTheme); // add new theme class
-    localStorage.setItem("selectedTheme", selectedTheme); // store it
+    const selectedTheme = themeDropdown.value;
+    body.classList.remove(...themes);
+    body.classList.add(selectedTheme);
+    localStorage.setItem("selectedTheme", selectedTheme);
+    showIcon(selectedTheme);
   });
 
-  // === FORM SUBMISSION HANDLING ===
-
-  const jobForm = document.getElementById("jobForm"); // form element
-
-  // Listen for form submission
   jobForm.addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent the page from reloading
+    event.preventDefault();
+    const formData = new FormData(jobForm);
 
-    // Create a FormData object to hold all form fields and file
-    const formData = new FormData(jobForm); // automatically collects all input fields and the uploaded file
-
-    // Send the form data to the backend using fetch
     fetch("http://localhost:5050/api/jobs", {
       method: "POST",
       body: formData,
@@ -42,14 +56,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!response.ok) {
           throw new Error("Network response was not OK");
         }
-        return response.json(); // Parse the response JSON
+        return response.json();
       })
       .then((data) => {
         alert("✅ Job application saved successfully!");
-        jobForm.reset(); // Clear form after submission
+        jobForm.reset();
       })
       .catch((error) => {
-        console.error("❌ Error submitting form:", error);
+        console.error("❌ Error_submitting_form:", error);
         alert("Something went wrong while saving your job. Please try again.");
       });
   });

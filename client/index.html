@@ -2,21 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Character encoding for proper rendering -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Makes page responsive -->
     <title>Huntly - Job Application Tracker</title>
-    <!-- Page title in browser tab -->
     <link rel="stylesheet" href="css/style.css" />
-    <!-- Link to external CSS -->
   </head>
 
   <body class="naruto-theme">
-    <!-- Default theme is Naruto -->
-
-    <!-- Wrapper to center and stack dropdown + container -->
     <div class="wrapper">
-      <!-- Theme Dropdown Selector -->
+      <!-- NAVBAR -->
+      <nav class="navbar">
+        <div class="nav-left">
+          <a href="#" class="logo">JobHuntly</a>
+        </div>
+        <div class="nav-center">
+          <a href="#">About</a>
+          <a href="dashboard.html">Dashboard</a>
+        </div>
+        <div class="nav-right">
+          <a href="#">Account</a>
+          <img
+            src="assets/profile-placeholder.png"
+            alt="Profile"
+            class="profile-pic"
+          />
+        </div>
+      </nav>
+
+      <!-- THEME DROPDOWN -->
       <div class="theme-selector">
         <label for="themeDropdown">Select Theme:</label>
         <select id="themeDropdown">
@@ -26,16 +38,31 @@
         </select>
       </div>
 
-      <!-- Job Tracker Form Container -->
+      <!-- JOB FORM -->
       <div class="container">
         <h1>Track Your Job Applications</h1>
-        <form id="jobForm" enctype="multipart/form-data">
-          <input
-            type="email"
-            name="email"
-            placeholder="Recruiter's Email"
-            required
+        <div class="icon-overlap">
+          <img
+            id="naruto-icon"
+            src="/Users/rohanb/job_application_tracker/assets/naruto_headband.png"
+            class="theme-icon hidden"
+            title="Naruto"
           />
+          <img
+            id="onepiece-icon"
+            src="assets/onepiece-hat.png"
+            class="theme-icon hidden"
+            title="One Piece"
+          />
+          <img
+            id="demonslayer-icon"
+            src="assets/demonslayer-sword.png"
+            class="theme-icon hidden"
+            title="Demon Slayer"
+          />
+        </div>
+        <form id="jobForm" enctype="multipart/form-data">
+          <input type="email" name="email" placeholder="Email-used" required />
           <input type="text" name="role" placeholder="Job Role" required />
           <input
             type="text"
@@ -44,7 +71,6 @@
             required
           />
           <input type="url" name="jobLink" placeholder="Application Link" />
-
           <label for="status">Application Status:</label>
           <select name="status" id="status">
             <option value="Applied">Applied</option>
@@ -52,23 +78,17 @@
             <option value="Offer">Offer</option>
             <option value="Rejected">Rejected</option>
           </select>
-
           <label for="resume">Upload Resume:</label>
           <input type="file" name="resume" accept=".pdf" />
-
           <textarea
             name="notes"
             rows="4"
             placeholder="Additional Notes..."
           ></textarea>
-
           <button type="submit">Add Job</button>
         </form>
       </div>
     </div>
-    <!-- End of wrapper -->
-
-    <!-- Link to JavaScript logic -->
     <script src="js/main.js"></script>
   </body>
 </html>

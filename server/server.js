@@ -12,12 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  "//Users/rohanb/job_application_tracker/uploads",
-  express.static(
-    path.join(__dirname, "/Users/rohanb/job_application_tracker/uploads")
-  )
-);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ✅ CORS config (no .options() call needed!)
 

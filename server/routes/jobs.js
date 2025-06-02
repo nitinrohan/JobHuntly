@@ -15,12 +15,20 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// ✅ GET all jobs
+router.get("/", async (req, res) => {
+  try {
+    const jobs = await Job.find().sort({ dateAdded: -1 });
+    res.json(jobs);
+  } catch (err) {
+    console.error("❌ Error fetching jobs:", err);
+    res.status(500).json({ message: "Failed to fetch jobs." });
+  }
+});
+
+// ✅ POST new job
 router.post("/", upload.single("resume"), async (req, res) => {
   try {
-    console.log("📥 Incoming POST /api/jobs");
-    console.log("🧾 Form Data:", req.body);
-    console.log("📎 Uploaded File:", req.file);
-
     const { email, role, company, jobLink, status, notes } = req.body;
 
     const job = new Job({
@@ -34,8 +42,6 @@ router.post("/", upload.single("resume"), async (req, res) => {
     });
 
     await job.save();
-
-    console.log("✅ Job saved to MongoDB");
     res.status(201).json({ message: "Job added successfully!" });
   } catch (err) {
     console.error("❌ Error saving job:", err);
@@ -43,4 +49,4 @@ router.post("/", upload.single("resume"), async (req, res) => {
   }
 });
 
-module.exports = router; // ✅ Don't forget this!
+module.exports = router;

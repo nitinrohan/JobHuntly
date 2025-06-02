@@ -42,11 +42,12 @@
       <!-- Chart Section -->
       <div class="dashboard-section">
         <h2>📊 Job Application Status Overview</h2>
-        <div class="chart-controls">
-          <button onclick="changeChartType('pie')">Pie</button>
-          <button onclick="changeChartType('bar')">Bar</button>
-          <button onclick="changeChartType('doughnut')">Histogram</button>
-        </div>
+        <select id="chartType">
+          <option value="pie">Pie</option>
+          <option value="bar">Bar</option>
+          <option value="doughnut">Histogram</option>
+        </select>
+
         <canvas id="jobChart" width="400" height="200"></canvas>
       </div>
 

@@ -4,28 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const themes = ["naruto-theme", "onepiece-theme", "demonslayer-theme"];
   const jobForm = document.getElementById("jobForm");
 
-  const narutoIcon = document.getElementById("naruto-icon");
-  const onepieceIcon = document.getElementById("onepiece-icon");
-  const demonslayerIcon = document.getElementById("demonslayer-icon");
-
-  function showIcon(theme) {
-    [narutoIcon, onepieceIcon, demonslayerIcon].forEach((icon) => {
-      icon.classList.add("hidden");
-      icon.style.animation = "none";
-    });
-
-    if (theme === "naruto-theme") {
-      narutoIcon.classList.remove("hidden");
-      narutoIcon.style.animation = "shake 0.8s ease 2";
-    } else if (theme === "onepiece-theme") {
-      onepieceIcon.classList.remove("hidden");
-      onepieceIcon.style.animation = "shake 0.8s ease 2";
-    } else if (theme === "demonslayer-theme") {
-      demonslayerIcon.classList.remove("hidden");
-      demonslayerIcon.style.animation = "stab 0.6s ease 2";
-    }
-  }
-
   const savedTheme = localStorage.getItem("selectedTheme");
   if (savedTheme && themes.includes(savedTheme)) {
     body.classList.remove(...themes);

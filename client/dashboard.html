@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobHuntly Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="naruto-theme">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="index.html" class="logo">JobHuntly</a>
+      </div>
+      <div class="nav-center">
+        <a href="#">About</a>
+        <a href="dashboard.html">Dashboard</a>
+      </div>
+      <div class="nav-right">
+        <a href="#">Account</a>
+        <img
+          src="assets/profile-placeholder.png"
+          alt="Profile"
+          class="profile-pic"
+        />
+      </div>
+    </nav>
+
+    <div class="wrapper">
+      <!-- Theme Selector -->
+      <div class="theme-selector">
+        <label for="themeDropdown">Select Theme:</label>
+        <select id="themeDropdown">
+          <option value="naruto-theme">Naruto</option>
+          <option value="onepiece-theme">One Piece</option>
+          <option value="demonslayer-theme">Demon Slayer</option>
+        </select>
+      </div>
+
+      <!-- Chart Section -->
+      <div class="dashboard-section">
+        <h2>📊 Job Application Status Overview</h2>
+        <div class="chart-controls">
+          <button onclick="changeChartType('pie')">Pie</button>
+          <button onclick="changeChartType('bar')">Bar</button>
+          <button onclick="changeChartType('doughnut')">Histogram</button>
+        </div>
+        <canvas id="jobChart" width="400" height="200"></canvas>
+      </div>
+
+      <!-- Table Section -->
+      <div class="dashboard-section">
+        <h2>📋 All Job Applications</h2>
+        <div class="table-container">
+          <table id="jobTable">
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Company</th>
+                <th>Status</th>
+                <th>Notes</th>
+                <th>Resume</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be populated here by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

@@ -1,0 +1,146 @@
+/* ========== DASHBOARD CLEAN LAYOUT STYLES ========== */
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: background 0.5s ease;
+  min-height: 100vh;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 0 2rem;
+  z-index: 999;
+}
+
+.wrapper {
+  padding-top: 100px; /* adjusted to leave space below navbar */
+  padding-left: 2rem;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.theme-selector {
+  margin-bottom: 30px;
+  margin-top: 10px; /* add extra space below navbar */
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  padding-left: 995px;
+}
+
+.dashboard-container,
+.dashboard-section {
+  width: 100%;
+  max-width: 1100px;
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.dashboard-section h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ========== TABLE STYLES ========== */
+
+.table-container {
+  overflow-x: auto;
+}
+
+#jobTable {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+}
+
+#jobTable th,
+#jobTable td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+#jobTable th {
+  background-color: rgba(255, 255, 255, 0.1);
+  font-weight: bold;
+}
+
+#jobTable td a {
+  color: #f9b233;
+  text-decoration: none;
+}
+
+.delete-btn {
+  background-color: crimson;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ========== CHART SECTION ========== */
+
+.chart-controls {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.chart-controls button {
+  background-color: #f9b233;
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  margin: 0 5px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chart-controls button:hover {
+  background-color: #ff8000;
+}
+
+canvas {
+  width: 100% !important;
+  max-width: 800px;
+  height: auto !important;
+  margin: 0 auto;
+  display: block;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* ========== THEMES ========== */
+.naruto-theme {
+  background: linear-gradient(to right, #f9b233, #ff512f);
+}
+
+.onepiece-theme {
+  background: linear-gradient(to right, #0077b6, #00b4d8);
+}
+
+.demonslayer-theme {
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+}

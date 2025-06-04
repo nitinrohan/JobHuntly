@@ -45,7 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
           }" target="_blank">View</a></td>
           <td>
           <td>${new Date(job.dateAdded).toLocaleDateString()}</td>
-          <button class="delete-btn" data-id="${job._id}">❌</button>
+          <td>
+            <button class="delete-btn" data-id="${job._id}">❌</button>
           </td>
         `;
       tbody.appendChild(tr);

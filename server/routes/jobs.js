@@ -51,4 +51,16 @@ router.post("/", upload.single("resume"), async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const deleted = await Job.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+    res.json({ message: "Job deleted" });
+  } catch (err) {
+    console.error("❌ Error deleting job:", err);
+    res.status(500).json({ message: "Failed to delete job." });
+  }
+});
 module.exports = router;

@@ -24,6 +24,12 @@ body {
   z-index: 999;
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  padding-right: 30px;
+}
+
 .nav-left .logo {
   font-size: 1.2rem;
   font-weight: bold;

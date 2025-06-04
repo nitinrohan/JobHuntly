@@ -61,10 +61,11 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         alert("✅ Job application saved successfully!");
         jobForm.reset();
+        window.location.href = "dashboard.html";
       })
       .catch((error) => {
-        console.error("❌ Error_submitting_form:", error);
-        alert("Something went wrong while saving your job. Please try again.");
+        console.error("❌ Error submitting form:", error);
+        alert("Something went wrong. Please try again.");
       });
   });
 });

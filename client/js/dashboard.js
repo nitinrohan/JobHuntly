@@ -43,7 +43,10 @@ document.addEventListener("DOMContentLoaded", function () {
           <td><a href="/uploads/${
             job.resumeFileName
           }" target="_blank">View</a></td>
-          <td><button class="delete-btn" data-id="${job._id}">❌</button></td>
+          <td>
+          <button class="delete-btn" data-id="${job._id}">❌</button>
+          <button class="edit-btn" data-id="${job._id}">✏️</button>
+          </td>
         `;
       tbody.appendChild(tr);
     });
@@ -59,6 +62,24 @@ document.addEventListener("DOMContentLoaded", function () {
           .then(() => {
             alert("Job deleted.");
             location.reload();
+          });
+      });
+    });
+
+    // Add edit functionality
+    document.querySelectorAll(".edit-btn").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        const id = btn.dataset.id;
+
+        fetch(`http://localhost:5050/api/jobs/${id}`)
+          .then((res) => res.json())
+          .then((job) => {
+            // Store job data in localStorage
+            localStorage.setItem("editJobId", id);
+            localStorage.setItem("editJobData", JSON.stringify(job));
+
+            // Redirect to index.html to edit the form
+            window.location.href = "index.html";
           });
       });
     });
@@ -107,4 +128,39 @@ document.addEventListener("DOMContentLoaded", function () {
         renderChart(jobs, selectedType);
       });
   }
+});
+
+// csv export functionality
+document.getElementById("exportBtn").addEventListener("click", () => {
+  fetch("http://localhost:5050/api/jobs")
+    .then((res) => res.json())
+    .then((jobs) => {
+      const csvRows = [
+        ["Email", "Role", "Company", "Status", "Notes", "Resume", "Date Added"],
+        ...jobs.map((job) => [
+          job.email,
+          job.role,
+          job.company,
+          job.status,
+          job.notes?.replace(/[\n\r]+/g, " ") || "",
+          `http://localhost:5050/uploads/${job.resumeFileName || ""}`,
+          new Date(job.dateAdded).toLocaleString(),
+        ]),
+      ];
+
+      const csvContent = csvRows
+        .map((row) =>
+          row.map((field) => `"${String(field).replace(/"/g, '""')}"`).join(",")
+        )
+        .join("\n");
+
+      const blob = new Blob([csvContent], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "job_applications.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
 });

@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// ✅ GET all jobs
 router.get("/", async (req, res) => {
   try {
     const jobs = await Job.find().sort({ dateAdded: -1 });
@@ -26,7 +25,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// ✅ POST new job
 router.post("/", upload.single("resume"), async (req, res) => {
   try {
     const { email, role, company, jobLink, status, notes } = req.body;
@@ -38,25 +36,18 @@ router.post("/", upload.single("resume"), async (req, res) => {
       jobLink,
       status,
       notes,
-      resumeFileName: req.file ? req.file.filename : null,
+      resumeFileName: req.file?.filename || null,
     });
+
+    console.log("📥 POST /api/jobs hit");
+    console.log("🧾 Body:", req.body);
+    console.log("📎 Resume:", req.file);
 
     await job.save();
     res.status(201).json({ message: "Job added successfully!" });
   } catch (err) {
     console.error("❌ Error saving job:", err);
     res.status(500).json({ message: "Failed to save job." });
-  }
-});
-// DELETE job by ID
-router.delete("/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    await Job.findByIdAndDelete(id);
-    res.json({ message: "Job deleted" });
-  } catch (err) {
-    console.error("❌ Error deleting job:", err);
-    res.status(500).json({ message: "Failed to delete job." });
   }
 });
 

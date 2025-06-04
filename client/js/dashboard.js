@@ -44,8 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
             job.resumeFileName
           }" target="_blank">View</a></td>
           <td>
+          <td>${new Date(job.dateAdded).toLocaleDateString()}</td>
           <button class="delete-btn" data-id="${job._id}">❌</button>
-          <button class="edit-btn" data-id="${job._id}">✏️</button>
           </td>
         `;
       tbody.appendChild(tr);

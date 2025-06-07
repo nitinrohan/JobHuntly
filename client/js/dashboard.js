@@ -43,7 +43,11 @@ document.addEventListener("DOMContentLoaded", function () {
           <td><a href="/uploads/${
             job.resumeFileName
           }" target="_blank">View</a></td>
-          <td>
+          <td>${
+            job.jobLink
+              ? `<a href="${job.jobLink}" target="_blank">Link</a>`
+              : "-"
+          }</td>
           <td>${new Date(job.dateAdded).toLocaleDateString()}</td>
           <td>
             <button class="delete-btn" data-id="${job._id}">❌</button>

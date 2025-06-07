@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const calendarFilter = document.getElementById("calendarFilter");
   let currentChart;
 
+  // Apply saved theme
   const savedTheme = localStorage.getItem("selectedTheme");
   if (savedTheme && themes.includes(savedTheme)) {
     body.classList.remove(...themes);
@@ -13,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     themeDropdown.value = savedTheme;
   }
 
+  // Handle theme switching
   themeDropdown.addEventListener("change", function () {
     const selectedTheme = themeDropdown.value;
     body.classList.remove(...themes);
@@ -20,10 +22,13 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("selectedTheme", selectedTheme);
   });
 
+  // Fetch and render jobs
   fetch("http://localhost:5050/api/jobs")
     .then((res) => res.json())
     .then((jobs) => {
-      jobs.sort((a, b) => new Date(a.dateAdded) - new Date(b.dateAdded));
+      jobs.sort(
+        (a, b) => new Date(a.dateAdded || 0) - new Date(b.dateAdded || 0)
+      );
       populateTable(jobs);
       renderChart(jobs, "pie");
     });
@@ -51,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }</td>
         <td>${new Date(job.dateAdded).toLocaleDateString()}</td>
         <td>
-          <button class="edit-btn" data-id="${job._id}">✏️</button>
           <button class="delete-btn" data-id="${job._id}">❌</button>
         </td>
       `;
@@ -66,19 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
           .then(() => {
             alert("Job deleted.");
             location.reload();
-          });
-      });
-    });
-
-    document.querySelectorAll(".edit-btn").forEach((btn) => {
-      btn.addEventListener("click", function () {
-        const id = btn.dataset.id;
-        fetch(`http://localhost:5050/api/jobs/${id}`)
-          .then((res) => res.json())
-          .then((job) => {
-            localStorage.setItem("editJobId", id);
-            localStorage.setItem("editJobData", JSON.stringify(job));
-            window.location.href = "index.html";
           });
       });
     });

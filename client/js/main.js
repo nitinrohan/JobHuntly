@@ -1,71 +1,75 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const themeDropdown = document.getElementById("themeDropdown");
-  const body = document.body;
-  const themes = ["naruto-theme", "onepiece-theme", "demonslayer-theme"];
-  const jobForm = document.getElementById("jobForm");
+const themeDropdown = document.getElementById("themeDropdown");
+const body = document.body;
+const themes = ["naruto-theme", "onepiece-theme", "demonslayer-theme"];
 
-  const narutoIcon = document.getElementById("naruto-icon");
-  const onepieceIcon = document.getElementById("onepiece-icon");
-  const demonslayerIcon = document.getElementById("demonslayer-icon");
+const savedTheme = localStorage.getItem("selectedTheme");
+if (savedTheme && themes.includes(savedTheme)) {
+  body.classList.remove(...themes);
+  body.classList.add(savedTheme);
+  themeDropdown.value = savedTheme;
+}
 
-  function showIcon(theme) {
-    [narutoIcon, onepieceIcon, demonslayerIcon].forEach((icon) => {
-      icon.classList.add("hidden");
-      icon.style.animation = "none";
-    });
+themeDropdown.addEventListener("change", function () {
+  body.classList.remove(...themes);
+  const selectedTheme = themeDropdown.value;
+  body.classList.add(selectedTheme);
+  localStorage.setItem("selectedTheme", selectedTheme);
+});
 
-    if (theme === "naruto-theme") {
-      narutoIcon.classList.remove("hidden");
-      narutoIcon.style.animation = "shake 0.8s ease 2";
-    } else if (theme === "onepiece-theme") {
-      onepieceIcon.classList.remove("hidden");
-      onepieceIcon.style.animation = "shake 0.8s ease 2";
-    } else if (theme === "demonslayer-theme") {
-      demonslayerIcon.classList.remove("hidden");
-      demonslayerIcon.style.animation = "stab 0.6s ease 2";
-    }
-  }
+// Prefill form for editing
+const editJobId = localStorage.getItem("editJobId");
+const editJobData = localStorage.getItem("editJobData");
+const jobForm = document.getElementById("jobForm");
+const cancelEditBtn = document.getElementById("cancelEditBtn");
 
-  const savedTheme = localStorage.getItem("selectedTheme");
-  if (savedTheme && themes.includes(savedTheme)) {
-    body.classList.remove(...themes);
-    body.classList.add(savedTheme);
-    themeDropdown.value = savedTheme;
-    showIcon(savedTheme);
-  } else {
-    showIcon(themeDropdown.value);
-  }
+if (editJobId && editJobData) {
+  const job = JSON.parse(editJobData);
+  jobForm.elements["email"].value = job.email;
+  jobForm.elements["role"].value = job.role;
+  jobForm.elements["company"].value = job.company;
+  jobForm.elements["jobLink"].value = job.jobLink || "";
+  jobForm.elements["status"].value = job.status;
+  jobForm.elements["notes"].value = job.notes || "";
+  jobForm.elements["dateAdded"].value = job.dateAdded
+    ? new Date(job.dateAdded).toISOString().split("T")[0]
+    : "";
+  document.querySelector("h1").textContent = "Update Job Application";
+  cancelEditBtn.style.display = "inline-block";
+}
 
-  themeDropdown.addEventListener("change", function () {
-    const selectedTheme = themeDropdown.value;
-    body.classList.remove(...themes);
-    body.classList.add(selectedTheme);
-    localStorage.setItem("selectedTheme", selectedTheme);
-    showIcon(selectedTheme);
-  });
+// Cancel Edit
+cancelEditBtn.addEventListener("click", function () {
+  localStorage.removeItem("editJobId");
+  localStorage.removeItem("editJobData");
+  jobForm.reset();
+  cancelEditBtn.style.display = "none";
+  document.querySelector("h1").textContent = "Track Your Job Applications";
+});
 
-  jobForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    const formData = new FormData(jobForm);
+// Submit job
+jobForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const formData = new FormData(jobForm);
+  const isEdit = Boolean(editJobId);
+  const url = isEdit
+    ? `http://localhost:5050/api/jobs/${editJobId}`
+    : "http://localhost:5050/api/jobs";
+  const method = isEdit ? "PUT" : "POST";
 
-    fetch("http://localhost:5050/api/jobs", {
-      method: "POST",
-      body: formData,
+  fetch(url, {
+    method,
+    body: formData,
+  })
+    .then((res) => res.json())
+    .then(() => {
+      alert(isEdit ? "✅ Job updated!" : "✅ Job saved!");
+      localStorage.removeItem("editJobId");
+      localStorage.removeItem("editJobData");
+      jobForm.reset();
+      window.location.href = "dashboard.html";
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not OK");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        alert("✅ Job application saved successfully!");
-        jobForm.reset();
-        window.location.href = "dashboard.html";
-      })
-      .catch((error) => {
-        console.error("❌ Error submitting form:", error);
-        alert("Something went wrong. Please try again.");
-      });
-  });
+    .catch((err) => {
+      console.error("❌ Submission failed:", err);
+      alert("Something went wrong. Try again.");
+    });
 });

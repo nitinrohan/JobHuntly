@@ -17,7 +17,7 @@ const upload = multer({ storage: storage });
 
 router.get("/", async (req, res) => {
   try {
-    const jobs = await Job.find().sort({ dateAdded: -1 });
+    const jobs = await Job.find().sort({ dateAdded: 1 }); // Oldest to newest
     res.json(jobs);
   } catch (err) {
     console.error("❌ Error fetching jobs:", err);

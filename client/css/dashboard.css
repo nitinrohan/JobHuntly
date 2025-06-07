@@ -66,6 +66,9 @@ body {
   overflow-x: auto;
 }
 
+#filterDate {
+  width: 150px;
+}
 #jobTable {
   width: 100%;
   border-collapse: collapse;

@@ -27,7 +27,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", upload.single("resume"), async (req, res) => {
   try {
-    const { email, role, company, jobLink, status, notes } = req.body;
+    const { email, role, company, jobLink, status, notes, dateAdded } =
+      req.body;
 
     const job = new Job({
       email,
@@ -36,6 +37,7 @@ router.post("/", upload.single("resume"), async (req, res) => {
       jobLink,
       status,
       notes,
+      dateAdded: dateAdded ? new Date(dateAdded) : undefined,
       resumeFileName: req.file?.filename || null,
     });
 
@@ -63,4 +65,5 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ message: "Failed to delete job." });
   }
 });
+
 module.exports = router;

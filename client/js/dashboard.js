@@ -26,43 +26,57 @@ document.addEventListener("DOMContentLoaded", function () {
       populateTable(jobs);
       renderChart(jobs, "pie"); // Default to pie chart
     });
+  document.getElementById("filterDate").addEventListener("change", function () {
+    const selected = this.value;
+    fetch("http://localhost:5050/api/jobs")
+      .then((res) => res.json())
+      .then((jobs) => {
+        const filtered = jobs.filter((job) => {
+          const jobDate = new Date(job.dateAdded).toISOString().split("T")[0];
+          return jobDate === selected;
+        });
+        populateTable(filtered);
+        renderChart(filtered, document.getElementById("chartType").value);
+      });
+  });
 
   // === POPULATE TABLE ===
   function populateTable(jobs) {
     const tbody = document.querySelector("#jobTable tbody");
-    tbody.innerHTML = ""; // Clear old content
+    tbody.innerHTML = "";
 
-    jobs.forEach((job) => {
+    jobs.forEach((job, index) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
-          <td>${job.email}</td>
-          <td>${job.role}</td>
-          <td>${job.company}</td>
-          <td>${job.status}</td>
-          <td>${job.notes || "-"}</td>
-          <td><a href="/uploads/${
-            job.resumeFileName
-          }" target="_blank">View</a></td>
-          <td>${
-            job.jobLink
-              ? `<a href="${job.jobLink}" target="_blank">Link</a>`
-              : "-"
-          }</td>
-          <td>${new Date(job.dateAdded).toLocaleDateString()}</td>
-          <td>
-            <button class="delete-btn" data-id="${job._id}">❌</button>
-          </td>
-        `;
+        <td>${index + 1}</td>
+        <td>${job.email}</td>
+        <td>${job.role}</td>
+        <td>${job.company}</td>
+        <td>${job.status}</td>
+        <td>${job.notes || "-"}</td>
+        <td>${
+          job.resumeFileName
+            ? `<a href="/uploads/${job.resumeFileName}" target="_blank">View</a>`
+            : "-"
+        }</td>
+        <td>${
+          job.jobLink
+            ? `<a href="${job.jobLink}" target="_blank">Link</a>`
+            : "-"
+        }</td>
+        <td>${new Date(job.dateAdded).toLocaleDateString()}</td>
+        <td>
+          <button class="delete-btn" data-id="${job._id}">❌</button>
+          <button class="edit-btn" data-id="${job._id}">✏️</button>
+        </td>
+      `;
       tbody.appendChild(tr);
     });
 
-    // Add delete functionality
     document.querySelectorAll(".delete-btn").forEach((btn) => {
       btn.addEventListener("click", function () {
         const id = btn.dataset.id;
-        fetch(`http://localhost:5050/api/jobs/${id}`, {
-          method: "DELETE",
-        })
+        fetch(`http://localhost:5050/api/jobs/${id}`, { method: "DELETE" })
           .then((res) => res.json())
           .then(() => {
             alert("Job deleted.");
@@ -71,19 +85,14 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // Add edit functionality
     document.querySelectorAll(".edit-btn").forEach((btn) => {
       btn.addEventListener("click", function () {
         const id = btn.dataset.id;
-
         fetch(`http://localhost:5050/api/jobs/${id}`)
           .then((res) => res.json())
           .then((job) => {
-            // Store job data in localStorage
             localStorage.setItem("editJobId", id);
             localStorage.setItem("editJobData", JSON.stringify(job));
-
-            // Redirect to index.html to edit the form
             window.location.href = "index.html";
           });
       });

@@ -1,0 +1,34 @@
+<!-- public/account.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Account</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="dashboard.html" class="logo">JobHuntly</a>
+      </div>
+      <div class="nav-right">
+        <a href="account.html">Account</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </nav>
+
+    <main class="account-section">
+      <h2>👤 My Account</h2>
+      <p>
+        <strong>Username:</strong> <span id="account-username">Loading...</span>
+      </p>
+    </main>
+
+    <script>
+      // fetch user info via cookie session (if needed we can add an API)
+      // for now, use static or localStorage until API is set
+      document.getElementById("account-username").textContent =
+        localStorage.getItem("username") || "Guest";
+    </script>
+  </body>
+</html>
